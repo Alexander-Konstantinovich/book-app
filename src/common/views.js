@@ -3,7 +3,7 @@ export class AbstractView {
         this.app = document.getElementById('root');
     }
 
-    setTitle(title){
+    setTitle(title){0
         document.title = title;
     }
 
