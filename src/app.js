@@ -1,6 +1,6 @@
 'use strict';
 
-import { MainView } from "./views/main/main";
+import { MainView } from "./views/main/main.js";
 
 class App {
     routes = [
