@@ -17,7 +17,7 @@
     align-items: center;
     gap: 10px;
     font-size: 14px;
-    line-height: 143%;
+    line-height: 20px;
     text-decoration: none;
 }
 
@@ -28,8 +28,8 @@
 .menu__counter{
     font-weight: 600;
     font-size: 12px;
-    line-height: 217%;
+    line-height: 28px;
     border: 1px solid var(--black);
-    border-radius: 100%;
+    border-radius: 50%;
     padding: 0 10px;
 }
