@@ -1105,7 +1105,7 @@
             }
             this.el.classList.add('card_list__loader');
             this.el.innerHTML = `
-        <h1> Books found - ${this.parentState.list.length}</h1>
+        <h1> Books found - ${this.parentState.numFound}</h1>
         `;
             return this.el;
         }
@@ -1115,6 +1115,7 @@
 
         state = {
             list: [],
+            numFound: 0,
             loading: false,
             searchQuery: undefined,
             offset: 0 //
@@ -1140,6 +1141,7 @@
                const data = await this.loadList(this.state.searchQuery, this.state.offset);
                this.state.loading = false;
                console.log(data);
+               this.state.numFound = data.numFound;
                this.state.list = data.docs;
             }
 

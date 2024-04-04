@@ -16,7 +16,7 @@ export class CardList extends DivComponent {
         }
         this.el.classList.add('card_list__loader');
         this.el.innerHTML = `
-        <h1> Books found - ${this.parentState.list.length}</h1>
+        <h1> Books found - ${this.parentState.numFound}</h1>
         `
         return this.el;
     }
