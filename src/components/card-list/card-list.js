@@ -17,7 +17,7 @@ export class CardList extends DivComponent {
         }
         this.el.classList.add('card_list');
         this.el.innerHTML = `
-        <h1> Books found - ${this.parentState.numFound}</h1>
+            <h1> Books found - ${this.parentState.numFound}</h1>
         `
         for(const card of this.parentState.list) {
             this.el.append(new Card(this.appState, card).render());
