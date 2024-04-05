@@ -16,15 +16,16 @@ export class Header extends DivComponent {
         </div>
         <div class="menu">
             <a class="menu__item" href="#">
-            <img src="/static/search.svg" alt= "Search icon" />
-            Search books
+                <img src="/static/search.svg" alt= "Search icon" />
+                    Search books
             </a>
-            <a class="menu__item" href="#">
+            <a class="menu__item" href="#favorites">
             <img src="/static/favorites.svg" alt= "Favorites books" />
             Favorites
-            <div class= "menu__counter">
-                ${this.appState.favorites.length}
-            </div>
+                <div class= "menu__counter">
+                    ${this.appState.favorites.length}
+                </div>
+            </a>
         </div>
         `;
         return this.el;

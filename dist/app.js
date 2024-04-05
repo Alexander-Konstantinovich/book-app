@@ -1039,15 +1039,16 @@
         </div>
         <div class="menu">
             <a class="menu__item" href="#">
-            <img src="/static/search.svg" alt= "Search icon" />
-            Search books
+                <img src="/static/search.svg" alt= "Search icon" />
+                    Search books
             </a>
-            <a class="menu__item" href="#">
+            <a class="menu__item" href="#favorites">
             <img src="/static/favorites.svg" alt= "Favorites books" />
             Favorites
-            <div class= "menu__counter">
-                ${this.appState.favorites.length}
-            </div>
+                <div class= "menu__counter">
+                    ${this.appState.favorites.length}
+                </div>
+            </a>
         </div>
         `;
             return this.el;
@@ -1091,6 +1092,46 @@
         }
     }
 
+    class Card extends DivComponent {
+        constructor(appState, cardState) {
+            super();
+            this.appState = appState;
+            this.cardState = cardState;
+        }
+
+        render(){
+            this.el.classList.add('card');
+            const existInFavorites = this.appState.favorites.find(
+                b => b.key == this.cardState.key
+            );
+            this.el.innerHTML = `
+        <div class="card__image">
+            <img src="https://covers.openlibrary.org/b/olid/${this.cardState.cover_edition_key}-M.jpg" alt="Cover" />
+        </div>
+        <div class="card__info">
+            <div class="card__tag">
+                ${this.cardState.subject ? this.cardState.subject[0] : 'Not specified'}
+            </div>
+            <div class="card__name">
+                ${this.cardState.title}
+            </div>
+            <div class="card__author">
+                ${this.cardState.author_name ? this.cardState.author_name[0] : 'Not specified'}
+            </div>
+            <div class="card__footer">
+                <button class="button__add ${existInFavorites ? 'button__active' : ''}">
+                    ${existInFavorites
+                        ? '<img src="/static/favorites.svg" />'
+                        : '<img src="/static/favorites-white.svg" />'
+                    }
+                </button>
+            </div>
+        </div>
+        `;
+            return this.el;
+        }
+    }
+
     class CardList extends DivComponent {
         constructor(appState, parentState) {
             super();
@@ -1098,15 +1139,18 @@
             this.parentState = parentState;
         }
 
-        render(){
+        render() {
             if(this.parentState.loading){
                 this.el.innerHTML = `<div class="card_list__loader">Loading...</div>`;
                 return this.el;
             }
-            this.el.classList.add('card_list__loader');
+            this.el.classList.add('card_list');
             this.el.innerHTML = `
         <h1> Books found - ${this.parentState.numFound}</h1>
         `;
+            for(const card of this.parentState.list) {
+                this.el.append(new Card(this.appState, card).render());
+            }
             return this.el;
         }
     }
