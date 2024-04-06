@@ -11,15 +11,20 @@ export class MainView extends AbstractView{
         numFound: 0,
         loading: false,
         searchQuery: undefined,
-        offset: 0 //
+        offset: 0
     }
 
     constructor(appState){
         super();
         this.appState= appState;
-        this.appState= onChange(this.appState, this.appStateHook.bind(this));//
+        this.appState= onChange(this.appState, this.appStateHook.bind(this));
         this.state= onChange(this.state, this.stateHook.bind(this));
         this.setTitle('Search books');
+    }
+
+    destroy(){
+        onChange.unsubscribe(this.appState)
+        onChange.unsubscribe(this.state)
     }
 
     appStateHook(path){
@@ -43,12 +48,15 @@ export class MainView extends AbstractView{
     }
 
     async loadList(q, offset) {
-        const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);//
+        const res = await fetch(`https://openlibrary.org/search.json?q=${q}&offset=${offset}`);
         return res.json();
     }
 
     render(){
         const main = document.createElement('div');
+        main.innerHTML = `
+        <h1> Books found - ${this.state.numFound}</h1>
+    `
         main.append(new Search(this.state).render());
         main.append(new CardList(this.appState, this.state).render());
         this.app.innerHTML = '';
